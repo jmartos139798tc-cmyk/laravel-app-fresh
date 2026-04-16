@@ -11,7 +11,7 @@
         </div>
 
         <div class="bg-white/5 border border-white/10 backdrop-blur-md rounded-3xl p-8 shadow-2xl">
-            <form method="POST" action="{{ route('books.store') }}">
+            <form method="POST" action="{{ route('books.store') }}" enctype="multipart/form-data">
                 @csrf
 
                 <div class="border-b border-white/10 pb-8 mb-8">
@@ -19,7 +19,7 @@
                     <p class="mt-2 text-blue-200/60 text-sm">Please fill in the details below to add a new book to the collection.</p>
                 </div>
 
-                <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                 <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                     <div class="sm:col-span-4">
                         <label for="title" class="block text-sm font-semibold text-blue-100 mb-2">Title *</label>
@@ -35,11 +35,32 @@
                             placeholder="Enter author name" />
                     </div>
 
-                    <div class="col-span-full">
-                        <label for="description" class="block text-sm font-semibold text-blue-100 mb-2">Description</label>
-                        <textarea id="description" name="description" rows="4"
-                            class="block w-full rounded-xl bg-white/10 border border-white/10 px-4 py-2.5 text-white placeholder:text-white/20 focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-hidden transition-all sm:text-sm"
-                            placeholder="Brief description of the book"></textarea>
+                    <div class="sm:col-span-3">
+                        <label for="genre" class="block text-sm font-semibold text-blue-100 mb-2">Genre *</label>
+                        <input id="genre" type="text" name="genre" required
+                            class="block w-full rounded-xl bg-white/10 border border-white/10 px-4 py-2.5 text-white placeholder:text-white/20 focus:ring-2 focus:ring-amber-400 focus:border-transparent outline-hidden transition-all sm:text-sm"
+                            placeholder="e.g., Fiction" />
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="publisher" class="block text-sm font-semibold text-blue-100 mb-2">Publisher *</label>
+                        <input id="publisher" type="text" name="publisher" required
+                            class="block w-full rounded-xl bg-white/10 border border-white/10 px-4 py-2.5 text-white placeholder:text-white/20 focus:ring-2 focus:ring-amber-400 focus:border-transparent outline-hidden transition-all sm:text-sm"
+                            placeholder="e.g., Penguin Books" />
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="isbn" class="block text-sm font-semibold text-blue-100 mb-2">ISBN *</label>
+                        <input id="isbn" type="text" name="isbn" required
+                            class="block w-full rounded-xl bg-white/10 border border-white/10 px-4 py-2.5 text-white placeholder:text-white/20 focus:ring-2 focus:ring-amber-400 focus:border-transparent outline-hidden transition-all sm:text-sm"
+                            placeholder="e.g., 978-3-16-148410-0" />
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="language" class="block text-sm font-semibold text-blue-100 mb-2">Language *</label>
+                        <input id="language" type="text" name="language" required
+                            class="block w-full rounded-xl bg-white/10 border border-white/10 px-4 py-2.5 text-white placeholder:text-white/20 focus:ring-2 focus:ring-amber-400 focus:border-transparent outline-hidden transition-all sm:text-sm"
+                            placeholder="e.g., English" />
                     </div>
 
                     <div class="sm:col-span-3">
@@ -50,10 +71,38 @@
                     </div>
 
                     <div class="sm:col-span-3">
-                        <label for="isbn" class="block text-sm font-semibold text-blue-100 mb-2">ISBN</label>
-                        <input id="isbn" type="text" name="isbn"
-                            class="block w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-white placeholder:text-white/20 focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-hidden transition-all sm:text-sm"
-                            placeholder="e.g., 978-3-16-148410-0" />
+                        <label for="pages" class="block text-sm font-semibold text-blue-100 mb-2">Pages *</label>
+                        <input id="pages" type="number" name="pages" required min="1"
+                            class="block w-full rounded-xl bg-white/10 border border-white/10 px-4 py-2.5 text-white placeholder:text-white/20 focus:ring-2 focus:ring-amber-400 focus:border-transparent outline-hidden transition-all sm:text-sm"
+                            placeholder="e.g., 300" />
+                    </div>
+
+                    <div class="col-span-full">
+                        <label for="description" class="block text-sm font-semibold text-blue-100 mb-2">Description</label>
+                        <textarea id="description" name="description" rows="4"
+                            class="block w-full rounded-xl bg-white/10 border border-white/10 px-4 py-2.5 text-white placeholder:text-white/20 focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-hidden transition-all sm:text-sm"
+                            placeholder="Brief description of the book"></textarea>
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="price" class="block text-sm font-semibold text-blue-100 mb-2">Price *</label>
+                        <input id="price" type="number" name="price" required step="0.01" min="0"
+                            class="block w-full rounded-xl bg-white/10 border border-white/10 px-4 py-2.5 text-white placeholder:text-white/20 focus:ring-2 focus:ring-amber-400 focus:border-transparent outline-hidden transition-all sm:text-sm"
+                            placeholder="e.g., 19.99" />
+                    </div>
+
+                    <div class="sm:col-span-4">
+                        <label for="cover_image" class="block text-sm font-semibold text-blue-100 mb-2">Cover Image</label>
+                        <input id="cover_image" type="file" name="cover_image" accept="image/*"
+                            class="block w-full text-sm text-blue-200/60 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-amber-400 file:text-amber-950 hover:file:bg-amber-300 cursor-pointer" />
+                    </div>
+
+                    <div class="sm:col-span-2">
+                        <label class="flex items-center">
+                            <input id="is_available" type="checkbox" name="is_available" value="1" checked
+                                class="rounded border-white/10 text-amber-400 focus:ring-amber-400 focus:ring-2" />
+                            <span class="ml-2 text-sm font-semibold text-blue-100">Available</span>
+                        </label>
                     </div>
                 </div>
 

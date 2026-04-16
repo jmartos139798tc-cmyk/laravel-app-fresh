@@ -16,8 +16,15 @@ return new class extends Migration
             $table->string('title');
             $table->string('author');
             $table->text('description')->nullable();
-            $table->integer('published_year')->nullable();
-            $table->string('isbn')->nullable();
+            $table->string('genre');
+            $table->integer('published_year');
+            $table->string('isbn')->unique();
+            $table->integer('pages');
+            $table->string('language');
+            $table->string('publisher');
+            $table->decimal('price', 8, 2);
+            $table->string('cover_image')->nullable();
+            $table->boolean('is_available')->default(true);
             $table->timestamps();
         });
     }

@@ -22,52 +22,91 @@
                     <div>
                         <h2 class="text-3xl font-black text-white tracking-tight">{{ $book->title }}</h2>
                         <p class="text-blue-200/60 text-sm">by {{ $book->author }}</p>
-                    </div>
-                </div>
-            </div>
+                     </div>
 
-            <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
-                <div class="space-y-6">
-                    <div>
-                        <label class="block text-sm font-semibold text-blue-100 mb-2">Author</label>
-                        <div class="bg-white/5 border border-white/10 px-4 py-2.5 text-white rounded-xl">
-                            {{ $book->author }}
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-blue-100 mb-2">Published Year</label>
-                        <div class="bg-white/5 border border-white/10 px-4 py-2.5 text-white rounded-xl">
-                            {{ $book->published_year ?? 'Not specified' }}
-                        </div>
-                    </div>
-                </div>
+                 </div>
+              </div>
 
-                <div class="space-y-6">
-                    <div>
-                        <label class="block text-sm font-semibold text-blue-100 mb-2">ISBN</label>
-                        <div class="bg-white/5 border border-white/10 px-4 py-2.5 text-white rounded-xl">
-                            {{ $book->isbn ?? 'Not specified' }}
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-blue-100 mb-2">Date Added</label>
-                        <div class="bg-white/5 border border-white/10 px-4 py-2.5 text-white rounded-xl">
-                            {{ $book->created_at->format('M j, Y') }}
-                        </div>
-                    </div>
-                </div>
-            </div>
+              <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 mt-8">
+                  <div class="space-y-6">
+                      <div>
+                          <label class="block text-sm font-semibold text-blue-100 mb-2">Author</label>
+                          <div class="bg-white/5 border border-white/10 px-4 py-2.5 text-white rounded-xl">
+                              {{ $book->author }}
+                          </div>
+                      </div>
+                      <div>
+                          <label class="block text-sm font-semibold text-blue-100 mb-2">Genre</label>
+                          <div class="bg-white/5 border border-white/10 px-4 py-2.5 text-white rounded-xl">
+                              {{ $book->genre }}
+                          </div>
+                      </div>
+                      <div>
+                          <label class="block text-sm font-semibold text-blue-100 mb-2">Published Year</label>
+                          <div class="bg-white/5 border border-white/10 px-4 py-2.5 text-white rounded-xl">
+                              {{ $book->published_year }}
+                          </div>
+                      </div>
+                      <div>
+                          <label class="block text-sm font-semibold text-blue-100 mb-2">Pages</label>
+                          <div class="bg-white/5 border border-white/10 px-4 py-2.5 text-white rounded-xl">
+                              {{ $book->pages }}
+                          </div>
+                      </div>
+                  </div>
 
-            @if($book->description)
-                <div class="mt-8">
-                    <label class="block text-sm font-semibold text-blue-100 mb-2">Description</label>
-                    <div class="bg-white/10 border border-white/10 px-4 py-3 text-white rounded-xl min-h-[100px]">
-                        {{ $book->description }}
-                    </div>
-                </div>
-            @endif
+                  <div class="space-y-6">
+                      <div>
+                          <label class="block text-sm font-semibold text-blue-100 mb-2">ISBN</label>
+                          <div class="bg-white/5 border border-white/10 px-4 py-2.5 text-white rounded-xl">
+                              {{ $book->isbn }}
+                          </div>
+                      </div>
+                      <div>
+                          <label class="block text-sm font-semibold text-blue-100 mb-2">Language</label>
+                          <div class="bg-white/5 border border-white/10 px-4 py-2.5 text-white rounded-xl">
+                              {{ $book->language }}
+                          </div>
+                      </div>
+                      <div>
+                          <label class="block text-sm font-semibold text-blue-100 mb-2">Publisher</label>
+                          <div class="bg-white/5 border border-white/10 px-4 py-2.5 text-white rounded-xl">
+                              {{ $book->publisher }}
+                          </div>
+                      </div>
+                      <div>
+                          <label class="block text-sm font-semibold text-blue-100 mb-2">Price</label>
+                          <div class="bg-white/5 border border-white/10 px-4 py-2.5 text-white rounded-xl">
+                              ${{ number_format($book->price, 2) }}
+                          </div>
+                      </div>
+                  </div>
+              </div>
 
-            <div class="mt-12 flex items-center justify-end gap-x-4 pt-8 border-t border-white/10">
+              @if(!empty($book->description))
+                  <div class="mt-8">
+                      <label class="block text-sm font-semibold text-blue-100 mb-2">Description</label>
+                      <div class="bg-white/10 border border-white/10 px-4 py-3 text-white rounded-xl min-h-[100px]">
+                          {{ $book->description }}
+                      </div>
+                  </div>
+              @endif
+
+              @if(!empty($book->cover_image) && is_string($book->cover_image))
+                  <div class="mt-8">
+                      <label class="block text-sm font-semibold text-blue-100 mb-2">Cover Image</label>
+                      <img src="{{ asset('storage/' . $book->cover_image) }}" alt="Cover Image" class="max-w-xs rounded-xl border border-white/10">
+                  </div>
+              @endif
+
+              <div class="mt-8">
+                  <label class="block text-sm font-semibold text-blue-100 mb-2">Availability</label>
+                  <div class="bg-white/5 border border-white/10 px-4 py-2.5 text-white rounded-xl">
+                      {{ $book->is_available ? 'Available' : 'Not Available' }}
+                  </div>
+              </div>
+
+              <div class="mt-12 flex items-center justify-end gap-x-4 pt-8 border-t border-white/10">
                 <a href="{{ route('books.index') }}" class="px-6 py-2.5 text-sm font-bold text-white hover:text-red-400 transition-colors">
                     Back to List
                 </a>

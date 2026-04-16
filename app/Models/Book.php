@@ -10,7 +10,14 @@ class Book extends Model
         'title',
         'author',
         'description',
+        'genre',
         'published_year',
         'isbn',
+        'pages',
+        'language',
+        'publisher',
+        'price',
+        'cover_image',
+        'is_available',
     ];
 }
